@@ -544,22 +544,22 @@ class S2B2CService extends BaseService
         $isCTProject = class_exists('\CorporateTrainingBundle\System');
         if ($isCTProject) {
             return array(
-                'System' => 'CT',
-                'SystemVersion' => \CorporateTrainingBundle\System::CT_VERSION
+                'BSystem' => 'CT',
+                'BSystemVersion' => \CorporateTrainingBundle\System::CT_VERSION
             );
         }
 
         $isESProject = class_exists('\AppBundle\System');
         if ($isESProject) {
             return array(
-                'System' => 'ES',
-                'SystemVersion' => \AppBundle\System::VERSION
+                'BSystem' => 'ES',
+                'BSystemVersion' => \AppBundle\System::VERSION
             );
         }
 
         return array(
-            'System' => 'UN',
-            'SystemVersion' => 0
+            'BSystem' => 'UN',
+            'BSystemVersion' => 0
         );
     }
 
