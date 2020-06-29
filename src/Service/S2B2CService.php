@@ -528,7 +528,7 @@ class S2B2CService extends BaseService
     {
         try {
             $this->logger->info('try '.$methodName.': ', array('DATA' => $data));
-            $result = $this->request($requestMethod, $this->uri, $data);
+            $result = $this->request($requestMethod, $this->uri, $data, $this->getDefaultHeaders());
             $this->logger->info($methodName.' SUCCEED', array($result));
         } catch (\Exception $e) {
             $this->logger->error($methodName.' error: '.$e->getMessage(), array('DATA' => $data));
@@ -537,6 +537,30 @@ class S2B2CService extends BaseService
         }
 
         return $result;
+    }
+
+    private function getDefaultHeaders()
+    {
+        $isCTProject = class_exists('\CorporateTrainingBundle\System');
+        if ($isCTProject) {
+            return array(
+                'System' => 'CT',
+                'SystemVersion' => \CorporateTrainingBundle\System::CT_VERSION
+            );
+        }
+
+        $isESProject = class_exists('\AppBundle\System');
+        if ($isESProject) {
+            return array(
+                'System' => 'ES',
+                'SystemVersion' => \AppBundle\System::VERSION
+            );
+        }
+
+        return array(
+            'System' => 'UN',
+            'SystemVersion' => 0
+        );
     }
 
     protected function createErrorResult($message = 'unexpected error')
