@@ -143,8 +143,9 @@ class S2B2CService extends BaseService
             'start' => (int) $start,
             'limit' => (int) $limit,
         );
+        $this->uri = '/contents/search_distribute';
 
-        return $this->request('GET', '/contents/search_distribute', $params);
+        return $this->sendRequest('searchDistribute', $params);
     }
 
     // 获取余额明细详情接口路径
